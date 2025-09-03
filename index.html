@@ -1,839 +1,1004 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>岡見 洋佑 - ポートフォリオ</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', 'Hiragino Sans', Meiryo, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            background-color: white;
-            box-shadow: 0 0 20px rgba(0,0,0,0.1);
-        }
-
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            margin: -20px -20px 40px -20px;
-            border-radius: 0 0 20px 20px;
-        }
-
-        .header h1 {
-            font-size: 2.5em;
-            margin-bottom: 10px;
-            font-weight: 300;
-        }
-
-        .header .subtitle {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .profile-section {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-            margin-bottom: 40px;
-        }
-
-        .profile-images {
-            display: flex;
-            gap: 20px;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .profile-images img {
-            width: 250px;
-            height: 350px;
-            object-fit: cover;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-            transition: transform 0.3s ease;
-        }
-
-        .profile-images img:hover {
-            transform: scale(1.05);
-        }
-
-        .profile-info {
-            flex: 1;
-        }
-
-        .profile-info h2 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-        }
-
-        .profile-info p {
-            margin-bottom: 10px;
-            font-size: 1.1em;
-        }
-
-        .section {
-            margin-bottom: 50px;
-        }
-
-        .section h2 {
-            color: #667eea;
-            font-size: 2em;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #667eea;
-            cursor: pointer;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .section h2:hover {
-            color: #764ba2;
-        }
-
-        .section h2::after {
-            content: '▼';
-            position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 0.7em;
-            transition: transform 0.3s ease;
-        }
-
-        .section h2.collapsed::after {
-            transform: translateY(-50%) rotate(-90deg);
-        }
-
-        .section-content {
-            transition: max-height 0.3s ease, opacity 0.3s ease;
-            overflow: hidden;
-        }
-
-        .section-content.collapsed {
-            max-height: 0;
-            opacity: 0;
-        }
-
-        .section h3 {
-            color: #764ba2;
-            font-size: 1.5em;
-            margin: 30px 0 15px 0;
-        }
-
-        .section h4 {
-            color: #555;
-            font-size: 1.2em;
-            margin: 20px 0 10px 0;
-        }
-
-        .project-card {
-            background: #fff;
-            border: 1px solid #e9ecef;
-            border-radius: 10px;
-            padding: 30px;
-            margin-bottom: 30px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .project-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
-
-        .project-images {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin: 25px 0;
-            align-items: start;
-        }
-
-        .project-images img {
-            width: 100%;
-            height: auto;
-            max-height: 400px;
-            object-fit: contain;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .project-images img:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
-        }
-
-        .project-images.single-row {
-            grid-template-columns: 1fr;
-            max-width: 800px;
-            margin: 25px auto;
-        }
-
-        .project-images.two-column {
-            grid-template-columns: 1fr 1fr;
-        }
-
-        .project-images.three-column {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .project-images.mixed-layout {
-            grid-template-columns: 2fr 1fr;
-        }
-
-        .tech-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 15px 0;
-        }
-
-        .tech-tag {
-            background: #667eea;
-            color: white;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.9em;
-            font-weight: 500;
-        }
-
-        .publications {
-            background: #f8f9ff;
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .publications ul {
-            list-style: none;
-        }
-
-        .publications li {
-            margin-bottom: 15px;
-            padding: 10px;
-            background: white;
-            border-radius: 5px;
-            border-left: 4px solid #667eea;
-        }
-
-        .video-container {
-            margin: 20px 0;
-        }
-
-        .video-container iframe {
-            max-width: 100%;
-            border-radius: 8px;
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
-            margin-top: 20px;
-        }
-
-        .skill-category {
-            background: #f8f9ff;
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid #e9ecef;
-        }
-
-        .skill-category h4 {
-            color: #667eea;
-            margin-bottom: 15px;
-        }
-
-        .skill-category ul {
-            list-style: none;
-        }
-
-        .skill-category li {
-            padding: 5px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .skill-category li:last-child {
-            border-bottom: none;
-        }
-
-        .skill-name {
-            width: 180px;
-            font-weight: 500;
-            flex-shrink: 0;
-            line-height: 1.4;
-            word-break: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .skill-duration {
-            color: #666;
-            font-size: 0.9em;
-            margin-left: 15px;
-            flex: 1;
-        }
-
-        .github-link {
-            text-align: center;
-            margin-top: 40px;
-            padding: 30px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            border-radius: 10px;
-        }
-
-        .github-link a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.2em;
-            font-weight: 500;
-        }
-
-        .github-link a:hover {
-            text-decoration: underline;
-        }
-
-        @media (max-width: 768px) {
-            .profile-section {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .profile-images {
-                justify-content: center;
-            }
-
-            .profile-images img {
-                width: 200px;
-                height: 280px;
-            }
-
-            .project-images,
-            .project-images.two-column,
-            .project-images.three-column,
-            .project-images.mixed-layout {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .project-images img {
-                max-height: 300px;
-            }
-
-            .header h1 {
-                font-size: 2em;
-            }
-
-            .video-container iframe {
-                width: 100%;
-                height: 250px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-
-            .project-card {
-                padding: 20px;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .skill-name {
-                width: 140px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .profile-images {
-                flex-direction: column;
-                align-items: center;
-            }
-
-            .profile-images img {
-                width: 180px;
-                height: 240px;
-            }
-
-            .header {
-                margin: -15px -15px 30px -15px;
-                padding: 30px 15px;
-            }
-
-            .header h1 {
-                font-size: 1.8em;
-            }
-
-            .skill-category li {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .skill-name {
-                width: 100%;
-                margin-bottom: 5px;
-            }
-
-            .skill-duration {
-                margin-left: 0;
-                width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>岡見 洋佑 - ポートフォリオ</title>
 </head>
+
 <body>
-    <div class="container">
-        <header class="header">
-            <h1>岡見 洋佑</h1>
-            <div class="subtitle">XR・Web開発エンジニア ポートフォリオ</div>
-        </header>
+  <div class="container">
+    <header class="header">
+      <h1>岡見 洋佑</h1>
+      <div class="subtitle">XR・Web開発エンジニア ポートフォリオ</div>
+    </header>
 
-        <section class="profile-section">
-            <div class="profile-images">
-                <img src="images/profile1.jpg" alt="プロフィール写真1">
-                <img src="images/profile2.jpg" alt="プロフィール写真2">
-            </div>
-            <div class="profile-info">
-                <h2>自己紹介</h2>
-                <p><strong>岡見 洋佑</strong> (1998年6月22日生)</p>
-                <p>香川県小豆郡土庄町出身</p>
-                
-                <h4>学歴・研究経験</h4>
-                <p><strong>奈良先端科学技術大学院大学 インタラクティブメディア設計学研究室</strong>を修了。在学中はAR/VR/MRなどの先端技術を活用した開発や、自動運転分野での研究開発に取り組む。高専本科・専攻科・大学院修士課程にて計6年間XRを研究で使用。</p>
-                
-                <h4>現在の業務</h4>
-                <p>現在は<strong>LLM（Large Language Model）関連のWebアプリケーション開発</strong>に従事。チーム内の「遊軍」として、フロントエンド・バックエンドの両方で手が足りない部分をカバーしながら、一人で機能を一貫して実装。タスク管理やスケジュール調整をサポートし、プロジェクト全体の進行を円滑化。</p>
-                
-                <h4>趣味・興味</h4>
-                <p><strong>ガジェット収集</strong> - 特にARグラスデバイスとDJIのドローンに興味</p>
-                <p>ドローン関連で作成したZenn記事：<a href="https://zenn.dev/yokmok/articles/aca816c8873d77" target="_blank">DJI製ドローン映像のリアルタイムキャプチャ</a></p>
-            </div>
-        </section>
+    <section class="profile-section">
+      <div class="profile-images">
+        <img src="images/profile1.jpg" alt="プロフィール写真1" />
+        <img src="images/profile2.jpg" alt="プロフィール写真2" />
+      </div>
+      <div class="profile-info">
+        <h2>自己紹介</h2>
+        <p><strong>岡見 洋佑</strong> (1998年6月22日生)</p>
+        <p>香川県小豆郡土庄町出身</p>
 
-        <section class="section">
-            <h2>スキルセット一覧</h2>
-            <div class="section-content">
-                <div class="skills-grid">
-                    <div class="skill-category">
-                        <h4>プログラミング言語</h4>
-                        <ul>
-                            <li><span class="skill-name">C#</span><span class="skill-duration">研究で6年<br>＋業務2年使用</span></li>
-                            <li><span class="skill-name">TypeScript</span><span class="skill-duration">業務2年使用</span></li>
-                            <li><span class="skill-name">Python</span><span class="skill-duration">業務半年使用</span></li>
-                            <li><span class="skill-name">Java</span><span class="skill-duration">業務で3ヶ月使用</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>フレームワーク・ライブラリ</h4>
-                        <ul>
-                            <li><span class="skill-name">.NET</span><span class="skill-duration">業務2年使用<br>（API開発）</span></li>
-                            <li><span class="skill-name">Nuxt3</span><span class="skill-duration">業務2年使用<br>（フロントエンド）</span></li>
-                            <li><span class="skill-name">Vue</span><span class="skill-duration">業務2年使用</span></li>
-                            <li><span class="skill-name">Unity</span><span class="skill-duration">研究で6年使用</span></li>
-                            <li><span class="skill-name">Fast API</span><span class="skill-duration">業務使用（API開発）</span></li>
-                            <li><span class="skill-name">Unreal<br>Engine</span><span class="skill-duration">個人で2ヶ月ほど勉強中</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>データベース・インフラ</h4>
-                        <ul>
-                            <li><span class="skill-name">PostgreSQL</span><span class="skill-duration">設計1ヶ月</span></li>
-                            <li><span class="skill-name">Linux</span><span class="skill-duration">業務1年半<br>研究2年</span></li>
-                            <li><span class="skill-name">Windows</span><span class="skill-duration">業務2年<br>個人利用10年</span></li>
-                            <li><span class="skill-name">MacOS</span><span class="skill-duration">個人利用3年</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>開発ツール・技術</h4>
-                        <ul>
-                            <li><span class="skill-name">Git</span><span class="skill-duration">バージョン管理</span></li>
-                            <li><span class="skill-name">Azure<br>DevOps</span><span class="skill-duration">タスク管理</span></li>
-                            <li><span class="skill-name">Figma</span><span class="skill-duration">UI/UX<br>デザイン修正</span></li>
-                            <li><span class="skill-name">E2Eテスト</span><span class="skill-duration">品質管理</span></li>
-                            <li><span class="skill-name">Roslyn</span><span class="skill-duration">コード<br>構文解析</span></li>
-                            <li><span class="skill-name">LLM API</span><span class="skill-duration">大規模言語<br>モデル活用</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>XR・ハードウェア</h4>
-                        <ul>
-                            <li><span class="skill-name">HoloLens</span><span class="skill-duration">AR開発</span></li>
-                            <li><span class="skill-name">HTC Vive</span><span class="skill-duration">VR開発</span></li>
-                            <li><span class="skill-name">Oculus DK2</span><span class="skill-duration">VR開発</span></li>
-                            <li><span class="skill-name">Arduino</span><span class="skill-duration">IoT</span></li>
-                        </ul>
-                    </div>
-                    
-                    <div class="skill-category">
-                        <h4>研究・自動運転関連</h4>
-                        <ul>
-                            <li><span class="skill-name">ROS</span><span class="skill-duration">ロボット制御</span></li>
-                            <li><span class="skill-name">Autoware</span><span class="skill-duration">自動運転<br>システム</span></li>
-                            <li><span class="skill-name">学会発表・<br>論文執筆</span><span class="skill-duration">複数実績</span></li>
-                            <li><span class="skill-name">研究プロジェクト<br>管理</span><span class="skill-duration">6年間の経験</span></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </section>
+        <h4>学歴・研究経験</h4>
+        <p>
+          <strong>奈良先端科学技術大学院大学
+            インタラクティブメディア設計学研究室</strong>を修了。在学中はAR/VR/MRなどの先端技術を活用した開発や、自動運転分野での研究開発に取り組む。高専本科・専攻科・大学院修士課程にて計6年間XRを研究で使用。
+        </p>
 
-        <section class="section">
-            <h2>主なプロジェクト</h2>
-            <div class="section-content">
-            
-            <div class="project-card">
-                <h3>VRはんだ付けシミュレーション（高専本科時代）</h3>
-                
-                <h4>目的・狙い</h4>
-                <p>小学生向け電子工作教室で火傷事故が発生するリスクを減らすため、VR上で事前練習を実施し、安全意識を高める。</p>
-                
-                <h4>課題・技術的トピック</h4>
-                <ul>
-                    <li>Oculus DK2、LeapMotion を組み合わせたハンドトラッキング</li>
-                    <li>Unity 5 / Oculus Runtime / LeapMotion のバージョン整合</li>
-                </ul>
-                
-                <div class="tech-list">
-                    <span class="tech-tag">Unity 5</span>
-                    <span class="tech-tag">Oculus DK2</span>
-                    <span class="tech-tag">LeapMotion</span>
-                </div>
-                
-                <h4>学んだこと</h4>
-                <ul>
-                    <li>VR環境構築やデバイス接続のノウハウ</li>
-                    <li>LeapMotionを用いた手指操作UIの設計</li>
-                    <li>技術のWebページの調べ方</li>
-                </ul>
-                
-                <div class="project-images single-row">
-                    <img src="images/soldering_vr.jpg" alt="VRはんだ付けシミュレーション">
-                </div>
-            </div>
+        <h4>現在の業務</h4>
+        <p>
+          現在は<strong>LLM（Large Language
+            Model）関連のWebアプリケーション開発</strong>に従事。チーム内の「遊軍」として、フロントエンド・バックエンドの両方で手が足りない部分をカバーしながら、一人で機能を一貫して実装。タスク管理やスケジュール調整をサポートし、プロジェクト全体の進行を円滑化。
+        </p>
 
-            <div class="project-card">
-                <h3>技術伝承のための人形浄瑠璃の動き保存システム（高専専攻科時代）</h3>
-                
-                <h4>目的・狙い</h4>
-                <p>人形浄瑠璃の継承者不足を解消するため、VRを用いて職人の動きを保存・再現し、次世代育成を補助。</p>
-                
-                <h4>課題・技術的トピック</h4>
-                <ul>
-                    <li>HTC Vive + ViveTrackerで人形の座標をトラッキング</li>
-                    <li>Arduino + ESP32 + ホールセンサからの動作データ取得をしてからくりの動きをトラッキング</li>
-                    <li>Unity上で記録データの可視化・再生</li>
-                </ul>
-                
-                <div class="tech-list">
-                    <span class="tech-tag">HTC Vive</span>
-                    <span class="tech-tag">ViveTracker</span>
-                    <span class="tech-tag">Arduino(ESP32)</span>
-                    <span class="tech-tag">Unity</span>
-                </div>
-                
-                <h4>学んだこと</h4>
-                <ul>
-                    <li>センサーデータとVRの組み合わせによるシステム構築</li>
-                    <li>シリアル通信(Arduino ⇔ Unity)の基礎</li>
-                    <li>データの保存と書き出し</li>
-                    <li>使用する機器に合わせたセンサーの選定</li>
-                </ul>
-                
-                <div class="publications">
-                    <h4>成果・論文発表</h4>
-                    <ul>
-                        <li>令和元年度電気関係学会四国支部連合大会講演論文集,p67 2019年9月<br>
-                        "阿波木偶人形の仮想表示システムの開発"<br>
-                        (岡見洋佑, 阿部崇登, 德永修一, 金澤啓三, 近藤祐史, 多田弘信)</li>
-                        
-                        <li><strong>INTERNATIONAL CONFERENCE ON INDUSTRIAL MANAGEMENT, 2021</strong><br>
-                        "DISPLAY METHOD OF HEAD MANIPULATION SKILLS OF AWA NINGYO JORURI"<br>
-                        (Rintarou KUBO, Seiji NAKAGAWA, Yuji KONDOH, Takahiro MIYAZAKI, Shuichi TOKUNAGA, Yosuke OKAMI, Hironobu TADA)</li>
-                        
-                        <li><strong>INTERNATIONAL CONFERENCE ON INDUSTRIAL MANAGEMENT, September 2021</strong><br>
-                        "DETECTION METHOD OF ARM MOVEMENT OF AWA NINGYO JORURI FOR VIRTUAL DISPLAY"<br>
-                        (Seiji NAKAGAWA, Rintarou KUBO, Takahiro MIYAZAKI, Yuji KONDOH, Shuichi TOKUNAGA, Yosuke OKAMI, Hironobu TADA)</li>
-                    </ul>
-                </div>
-                
-                <div class="project-images two-column">
-                    <img src="images/puppet_system.png" alt="人形浄瑠璃システム概要">
-                    <img src="images/puppet_work.jpg" alt="人形浄瑠璃作業風景">
-                </div>
-                
-                <div class="project-images single-row">
-                    <img src="images/puppet_screen.png" alt="人形浄瑠璃画面">
-                </div>
-                
-                <div class="project-images single-row">
-                    <img src="images/puppet_diagram.png" alt="人形浄瑠璃システム図">
-                </div>
-            </div>
+        <h4>趣味・興味</h4>
+        <p>
+          <strong>ガジェット収集</strong> -
+          特にARグラスデバイスとDJIのドローンに興味
+        </p>
+        <p>
+          ドローン関連で作成したZenn記事：<a href="https://zenn.dev/yokmok/articles/aca816c8873d77"
+            target="_blank">DJI製ドローン映像のリアルタイムキャプチャ</a>
+        </p>
+      </div>
+    </section>
 
-            <div class="project-card">
-                <h3>自動走行車両 + XR研究（NAIST時代）</h3>
-                
-                <h4>研究背景・目的</h4>
-                <p>自動走行下でのストレスを軽減するため、XR技術を活用して情報提示やエンターテインメントを提供するシステムを構築。</p>
-                
-                <div class="tech-list">
-                    <span class="tech-tag">HoloLens</span>
-                    <span class="tech-tag">Varjo XR-1</span>
-                    <span class="tech-tag">Unity</span>
-                    <span class="tech-tag">Autoware・ROS</span>
-                    <span class="tech-tag">AR・VR</span>
-                </div>
-                
-                <h4>主な取り組み</h4>
-                <ol>
-                    <li><strong>Autoware.AI + Unity連携</strong><br>
-                    ROS#を用いて車両の走行データをUnity側にリアルタイム送信</li>
-                    
-                    <li><strong>Varjo XR-1やHoloLensの車内使用</strong><br>
-                    SteamVR BaseStationの振動対策<br>
-                    HoloLensのMovingPlatformModeで道路にARオブジェクトを固定表示</li>
-                    
-                    <li><strong>加速度感覚制御付き半球スクリーン</strong><br>
-                    アクチュエーター＋Unityで視覚＋前庭覚を制御<br>
-                    360度映像や魚眼エフェクトを適用し、乗客の不快感を軽減</li>
-                </ol>
-                
-                <h4>学んだこと</h4>
-                <ul>
-                    <li>論文の見方や調べ方</li>
-                    <li>ARを用いる理由の付け方やARの得意なこと</li>
-                    <li>人に伝える言葉や資料の作り方</li>
-                    <li>当時のAR/VR HMDを車の中で使用する際の問題点</li>
-                    <li>Autoware×ROS×Unity×HMDを統合した環境構築</li>
-                    <li>車載HMDの課題対策、振動・センサー配置などの知見</li>
-                </ul>
-                
-                <div class="publications">
-                    <h4>学会発表・論文一覧</h4>
-                    <ul>
-                        <li><strong>CNR '22 (学生講演奨励賞, 2023年8月)</strong><br>
-                        「AR情報提示による自動走行時の搭乗者が受けるストレス軽減の調査」<br>
-                        （岡見洋佑, 澤邊 太志, 藤本 雄一郎, 神原 誠之, 加藤 博一）</li>
-                        
-                        <li><strong>IEEE ISMAR '22</strong><br>
-                        "Diminished Reality for Sense of Movement with XR Mobility Platform"<br>
-                        (Taishi Sawabe, Yosuke Okami, Masayuki Kanbara, Yuichiro Fujimoto, Hirokazu Kato)</li>
-                        
-                        <li><strong>HAI '22</strong><br>
-                        "Hype Dlive: XR Live Performance System for Improving Passenger Comfort in Autonomous Driving"<br>
-                        (Takuto Akiyoshi, Masashi Abe, Yuki Shimizu, Yusaku Takahama, Koki Nagata, Yosuke Okami, Taishi Sawabe)</li>
-                    </ul>
-                </div>
-                
-                <div class="project-images two-column">
-                    <img src="images/car_xr1.jpg" alt="自動走行車XRシステム1">
-                    <img src="images/car_xr2.png" alt="自動走行車XRシステム2">
-                </div>
-                
-                <div class="video-container">
-                    <iframe width="560" height="400" src="https://www.youtube.com/embed/FCynV5HNurI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                    
-                    <iframe width="560" height="400" src="https://www.youtube.com/embed/0LbaxfoBQVE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                </div>
-                
-                <div class="project-images three-column">
-                    <img src="images/car_system1.jpg" alt="車載システム1">
-                    <img src="images/car_system2.jpg" alt="車載システム2">
-                    <img src="images/car_system3.jpg" alt="車載システム3">
-                </div>
-                
-                <h4>HypeDliveプロジェクトの担当箇所</h4>
-                <p>システムの構築を担当</p>
-                <ul>
-                    <li>車載半球スクリーンに取り付けるアクチュエーターの制御用システムの機材の選定(リニアエンコーダーとArduinoを使用)</li>
-                    <li>半球投影する映像の360°動画を投影するUnityプロジェクトをUnity内に配置したカメラ映像を投影する形式に変更</li>
-                    <li>Unityと自動走行車の連携</li>
-                </ul>
-            </div>
-            </div>
-        </section>
+    <section class="section">
+      <h2>スキルセット一覧</h2>
+      <div class="section-content">
+        <div class="skills-grid">
+          <div class="skill-category">
+            <h4>プログラミング言語</h4>
+            <ul>
+              <li>
+                <span class="skill-name">C#</span><span class="skill-duration">研究で6年<br />＋業務2年使用</span>
+              </li>
+              <li>
+                <span class="skill-name">TypeScript</span><span class="skill-duration">業務2年使用</span>
+              </li>
+              <li>
+                <span class="skill-name">Python</span><span class="skill-duration">業務半年使用</span>
+              </li>
+              <li>
+                <span class="skill-name">Java</span><span class="skill-duration">業務で3ヶ月使用</span>
+              </li>
+            </ul>
+          </div>
 
-        <section class="section">
-            <h2>その他学生の頃の作品・活動</h2>
-            <div class="section-content">
-            
-            <div class="project-card">
-                <h3>部活動（高専時代）</h3>
-                
-                <h4>電子工作教室の企画・運営 (高専1~5年)</h4>
-                
-                <p><strong>活動内容</strong><br>
-                地域の小学校高学年向けに電子工作教室を開き、はんだ付けを含む電子工作キットを作成。試作品の回路図をもとにエッチングやプリント基板の作成を行い、一人分の部品セットをキット化して配布。また、作成手順資料の作成やサポートも担当。</p>
-                
-                <h4>課題・技術的トピック</h4>
-                <ul>
-                    <li>毎年、小学生がはんだゴテで火傷をしてしまうリスク</li>
-                    <li>安全に学習してもらうための教材づくり・教え方の工夫</li>
-                </ul>
-                
-                <h4>学んだこと</h4>
-                <ul>
-                    <li>電子工作の基礎(回路図→基板エッチング→部品実装)</li>
-                    <li>安全教育の重要性</li>
-                    <li>小学生への説明資料作成・運営ノウハウ</li>
-                </ul>
-                
-                <div class="project-images two-column">
-                    <img src="images/workshop1.jpg" alt="工作教室の様子1">
-                    <img src="images/workshop2.jpg" alt="工作教室の様子2">
-                </div>
-                
-                <div class="project-images mixed-layout">
-                    <img src="images/electronic_work1.jpg" alt="製作した電子工作1">
-                    <img src="images/electronic_work2.jpg" alt="製作した電子工作2">
-                </div>
-                
-                <div class="project-images single-row" style="max-width: 400px;">
-                    <img src="images/pcb_making.jpg" alt="プリント基板作成の様子">
-                </div>
-            </div>
-            
-            <div class="project-card">
-                <h3>授業作品（高専専攻科）</h3>
-                
-                <h4>リハビリ用アプリのUnity移植 (グループ開発)</h4>
-                
-                <p><strong>目的・狙い</strong><br>
-                Javaで作成されていたPCアプリが無料サポート終了に伴い、別のプラットフォームでリハビリ用アプリを作成する必要があったため、Unityで新規に開発。</p>
-                
-                <h4>主な機能</h4>
-                <ul>
-                    <li>点滅画像の検索タスク(反空間無視確認)</li>
-                    <li>神経衰弱(6ペア / 12ペア)</li>
-                    <li>紛らわしい文字の中からミススペルを探すタスク</li>
-                    <li>画像出示＋文字の並び替え(バラバラ文字の再構成)</li>
-                </ul>
-                
-                <p><strong>担当内容</strong><br>
-                9つほどある機能のうち、上記4つの機能のシステムの担当</p>
-                
-                <h4>学んだこと</h4>
-                <ul>
-                    <li>UnityでのGUI実装やビルド後のCSVファイル読み込み機能</li>
-                    <li>Unityでビルド後に指定ディレクトリ下に配置したビルド時にはプロジェクトに入れていない画像の参照・表示</li>
-                    <li>グループ開発でのタスク管理</li>
-                    <li>使用デバイスの使い回しやユーザ層を意識したUI設計</li>
-                </ul>
-                
-                <div class="project-images two-column">
-                    <img src="images/rehab_app1.png" alt="リハビリアプリ画面1">
-                    <img src="images/rehab_app2.png" alt="リハビリアプリ画面2">
-                    <img src="images/rehab_app3.png" alt="リハビリアプリ画面3">
-                    <img src="images/rehab_app4.png" alt="リハビリアプリ画面4">
-                </div>
-            </div>
-            </div>
-        </section>
+          <div class="skill-category">
+            <h4>フレームワーク・ライブラリ</h4>
+            <ul>
+              <li>
+                <span class="skill-name">.NET</span><span class="skill-duration">業務2年使用<br />（API開発）</span>
+              </li>
+              <li>
+                <span class="skill-name">Nuxt3</span><span class="skill-duration">業務2年使用<br />（フロントエンド）</span>
+              </li>
+              <li>
+                <span class="skill-name">Vue</span><span class="skill-duration">業務2年使用</span>
+              </li>
+              <li>
+                <span class="skill-name">Unity</span><span class="skill-duration">研究で6年使用</span>
+              </li>
+              <li>
+                <span class="skill-name">Fast API</span><span class="skill-duration">業務使用（API開発）</span>
+              </li>
+              <li>
+                <span class="skill-name">Unreal<br />Engine</span><span class="skill-duration">個人で2ヶ月ほど勉強中</span>
+              </li>
+              <li>
+                <span class="skill-name">Stripe</span><span class="skill-duration">フロント実装<br />業務使用</span>
+              </li>
+            </ul>
+          </div>
 
-        <section class="section">
-            <h2>職務経歴</h2>
-            <div class="section-content">
-            
-            <div class="project-card">
-                <h3>株式会社FIXER（2023年4月～現在）</h3>
-                <p><strong>資本金：</strong>12億1千万円　<strong>従業員数：</strong>323名　<strong>業種：</strong>ソフトウェア・情報処理</p>
-                
-                <h4>案件概要</h4>
-                <p><strong>AI技術を用いたSaaS開発</strong><br>
-                自治体・企業向けの自社サービスチャットボット開発を100社以上のクライアントに向けて展開。LLM（Large Language Model）関連のWebアプリケーション開発に従事し、チーム内の「遊軍」として、フロントエンド・バックエンドの両方で手が足りない部分をカバー。</p>
-                
-                <div class="tech-list">
-                    <span class="tech-tag">Nuxt3</span>
-                    <span class="tech-tag">TypeScript</span>
-                    <span class="tech-tag">.NET</span>
-                    <span class="tech-tag">Python</span>
-                    <span class="tech-tag">PostgreSQL</span>
-                    <span class="tech-tag">Fast API</span>
-                    <span class="tech-tag">Roslyn</span>
-                </div>
-                
-                <h4>担当業務・フェーズ</h4>
-                <ul>
-                    <li><strong>フロントエンド開発</strong>：Nuxt3（TypeScript）を中心とした開発</li>
-                    <li><strong>バックエンド開発</strong>：.NET / Python でのAPI開発</li>
-                    <li><strong>API設計・実装</strong>：サーバーサイド Rest API設計・開発、DB連携</li>
-                    <li><strong>品質管理</strong>：E2Eテスト構築、リリース作業</li>
-                    <li><strong>UI/UX</strong>：FigmaでのWebページのデザイン変更箇所の修正と反映</li>
-                    <li><strong>技術選定</strong>：LLM API（大規模言語モデル）を活用した機能開発</li>
-                    <li><strong>コード解析</strong>：Roslynを用いたコードの構文解析</li>
-                </ul>
-                
-                <h4>チーム・役割</h4>
-                <p><strong>メンバー数：</strong>15~20名　<strong>役割：</strong>プログラマー（遊軍）</p>
-                <ul>
-                    <li>「遊軍」としてフロント・バックエンド両方のタスクをカバー</li>
-                    <li>一人で機能を一貫して実装（UI～APIまで）</li>
-                    <li>タスク管理やスケジュール調整をサポート</li>
-                    <li>チーム内で不足がちな領域を補完</li>
-                </ul>
-            </div>
-            </div>
-        </section>
+          <div class="skill-category">
+            <h4>データベース・インフラ</h4>
+            <ul>
+              <li>
+                <span class="skill-name">PostgreSQL</span><span class="skill-duration">設計1ヶ月</span>
+              </li>
+              <li>
+                <span class="skill-name">Linux</span><span class="skill-duration">業務1年半<br />研究2年</span>
+              </li>
+              <li>
+                <span class="skill-name">Windows</span><span class="skill-duration">業務2年<br />個人利用10年</span>
+              </li>
+              <li>
+                <span class="skill-name">MacOS</span><span class="skill-duration">個人利用3年</span>
+              </li>
+              <li>
+                <span class="skill-name">Azure</span><span class="skill-duration">業務2年半使用</span>
+              </li>
+            </ul>
+          </div>
 
-        <div class="github-link">
-            <a href="https://github.com/okami622" target="_blank">GitHubアカウント: https://github.com/okami622</a>
+          <div class="skill-category">
+            <h4>開発ツール・技術</h4>
+            <ul>
+              <li>
+                <span class="skill-name">Git</span><span class="skill-duration">バージョン管理</span>
+              </li>
+              <li>
+                <span class="skill-name">GitHub</span><span class="skill-duration">バージョン管理</span>
+              </li>
+              <li>
+                <span class="skill-name">GitHub<br />Actions</span><span class="skill-duration">コードレビューの<br />自動化</span>
+              </li>
+              <li>
+                <span class="skill-name">GitHub<br />Copilot</span><span class="skill-duration">プロンプトの作成<br />コーディング支援</span>
+              </li>
+              <li>
+                <span class="skill-name">Azure<br />DevOps</span><span class="skill-duration">タスク管理<br />リリース自動化</span>
+              </li>
+              <li>
+                <span class="skill-name">E2Eテスト</span><span class="skill-duration">品質管理</span>
+              </li>
+              <li>
+                <span class="skill-name">Roslyn</span><span class="skill-duration">コーディング<br />スタイル統一</span>
+              </li>
+              <li>
+                <span class="skill-name">LLM API</span><span class="skill-duration">大規模言語<br />モデル活用</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h4>XR・ハードウェア</h4>
+            <ul>
+              <li>
+                <span class="skill-name">HoloLens</span><span class="skill-duration">AR開発</span>
+              </li>
+              <li>
+                <span class="skill-name">HTC Vive</span><span class="skill-duration">VR開発</span>
+              </li>
+              <li>
+                <span class="skill-name">Oculus DK2</span><span class="skill-duration">VR開発</span>
+              </li>
+              <li>
+                <span class="skill-name">Arduino</span><span class="skill-duration">IoT</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="skill-category">
+            <h4>研究</h4>
+            <ul>
+              <li>
+                <span class="skill-name">ROS</span><span class="skill-duration">ロボット制御</span>
+              </li>
+              <li>
+                <span class="skill-name">Autoware</span><span class="skill-duration">自動運転<br />システム</span>
+              </li>
+            </ul>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            const sectionHeaders = document.querySelectorAll('.section h2');
-            
-            sectionHeaders.forEach(header => {
-                header.addEventListener('click', function() {
-                    const section = this.parentElement;
-                    const content = section.querySelector('.section-content');
-                    
-                    // トグル機能
-                    this.classList.toggle('collapsed');
-                    content.classList.toggle('collapsed');
-                    
-                    // 高さを動的に計算
-                    if (!content.classList.contains('collapsed')) {
-                        content.style.maxHeight = content.scrollHeight + 'px';
-                    } else {
-                        content.style.maxHeight = '0';
-                    }
-                });
-            });
-            
-            // 初期状態で全てのセクションの高さを設定
-            const allSectionContents = document.querySelectorAll('.section-content');
-            allSectionContents.forEach(content => {
-                if (!content.classList.contains('collapsed')) {
-                    content.style.maxHeight = content.scrollHeight + 'px';
-                }
-            });
+    <section class="section">
+      <h2>主なプロジェクト</h2>
+      <div class="section-content">
+        <div class="project-card">
+          <h3>VRはんだ付けシミュレーション（高専本科時代）</h3>
+
+          <h4>目的・狙い</h4>
+          <p>
+            小学生向け電子工作教室で火傷事故が発生するリスクを減らすため、VR上で事前練習を実施し、安全意識を高める。
+          </p>
+
+          <h4>課題・技術的トピック</h4>
+          <ul>
+            <li>Oculus DK2、LeapMotion を組み合わせたハンドトラッキング</li>
+            <li>Unity 5 / Oculus Runtime / LeapMotion のバージョン整合</li>
+          </ul>
+
+          <div class="tech-list">
+            <span class="tech-tag">Unity 5</span>
+            <span class="tech-tag">Oculus DK2</span>
+            <span class="tech-tag">LeapMotion</span>
+          </div>
+
+          <h4>学んだこと</h4>
+          <ul>
+            <li>VR環境構築やデバイス接続のノウハウ</li>
+            <li>LeapMotionを用いた手指操作UIの設計</li>
+            <li>技術のWebページの調べ方</li>
+          </ul>
+
+          <div class="project-images single-row">
+            <img src="images/soldering_vr.jpg" alt="VRはんだ付けシミュレーション" />
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>
+            技術伝承のための人形浄瑠璃の動き保存システム（高専専攻科時代）
+          </h3>
+
+          <h4>目的・狙い</h4>
+          <p>
+            人形浄瑠璃の継承者不足を解消するため、VRを用いて職人の動きを保存・再現し、次世代育成を補助。
+          </p>
+
+          <h4>課題・技術的トピック</h4>
+          <ul>
+            <li>HTC Vive + ViveTrackerで人形の座標をトラッキング</li>
+            <li>
+              Arduino + ESP32 +
+              ホールセンサからの動作データ取得をしてからくりの動きをトラッキング
+            </li>
+            <li>Unity上で記録データの可視化・再生</li>
+          </ul>
+
+          <div class="tech-list">
+            <span class="tech-tag">HTC Vive</span>
+            <span class="tech-tag">ViveTracker</span>
+            <span class="tech-tag">Arduino(ESP32)</span>
+            <span class="tech-tag">Unity</span>
+          </div>
+
+          <h4>学んだこと</h4>
+          <ul>
+            <li>センサーデータとVRの組み合わせによるシステム構築</li>
+            <li>シリアル通信(Arduino ⇔ Unity)の基礎</li>
+            <li>データの保存と書き出し</li>
+            <li>使用する機器に合わせたセンサーの選定</li>
+          </ul>
+
+          <div class="publications">
+            <h4>成果・論文発表</h4>
+            <ul>
+              <li>
+                令和元年度電気関係学会四国支部連合大会講演論文集,p67
+                2019年9月<br />
+                "阿波木偶人形の仮想表示システムの開発"<br />
+                (岡見洋佑, 阿部崇登, 德永修一, 金澤啓三, 近藤祐史, 多田弘信)
+              </li>
+
+              <li>
+                <strong>INTERNATIONAL CONFERENCE ON INDUSTRIAL MANAGEMENT,
+                  2021</strong><br />
+                "DISPLAY METHOD OF HEAD MANIPULATION SKILLS OF AWA NINGYO
+                JORURI"<br />
+                (Rintarou KUBO, Seiji NAKAGAWA, Yuji KONDOH, Takahiro
+                MIYAZAKI, Shuichi TOKUNAGA, Yosuke OKAMI, Hironobu TADA)
+              </li>
+
+              <li>
+                <strong>INTERNATIONAL CONFERENCE ON INDUSTRIAL MANAGEMENT,
+                  September 2021</strong><br />
+                "DETECTION METHOD OF ARM MOVEMENT OF AWA NINGYO JORURI FOR
+                VIRTUAL DISPLAY"<br />
+                (Seiji NAKAGAWA, Rintarou KUBO, Takahiro MIYAZAKI, Yuji
+                KONDOH, Shuichi TOKUNAGA, Yosuke OKAMI, Hironobu TADA)
+              </li>
+            </ul>
+          </div>
+
+          <div class="project-images two-column">
+            <img src="images/puppet_system.png" alt="人形浄瑠璃システム概要" />
+            <img src="images/puppet_work.jpg" alt="人形浄瑠璃作業風景" />
+          </div>
+
+          <div class="project-images single-row">
+            <img src="images/puppet_screen.png" alt="人形浄瑠璃画面" />
+          </div>
+
+          <div class="project-images single-row">
+            <img src="images/puppet_diagram.png" alt="人形浄瑠璃システム図" />
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>自動走行車両 + XR研究（NAIST時代）</h3>
+
+          <h4>研究背景・目的</h4>
+          <p>
+            自動走行下でのストレスを軽減するため、XR技術を活用して情報提示やエンターテインメントを提供するシステムを構築。
+          </p>
+
+          <div class="tech-list">
+            <span class="tech-tag">HoloLens</span>
+            <span class="tech-tag">Varjo XR-1</span>
+            <span class="tech-tag">Unity</span>
+            <span class="tech-tag">Autoware・ROS</span>
+            <span class="tech-tag">AR・VR</span>
+          </div>
+
+          <h4>主な取り組み</h4>
+          <ol>
+            <li>
+              <strong>Autoware.AI + Unity連携</strong><br />
+              ROS#を用いて車両の走行データをUnity側にリアルタイム送信
+            </li>
+
+            <li>
+              <strong>Varjo XR-1やHoloLensの車内使用</strong><br />
+              SteamVR BaseStationの振動対策<br />
+              HoloLensのMovingPlatformModeで道路にARオブジェクトを固定表示
+            </li>
+
+            <li>
+              <strong>加速度感覚制御付き半球スクリーン</strong><br />
+              アクチュエーター＋Unityで視覚＋前庭覚を制御<br />
+              360度映像や魚眼エフェクトを適用し、乗客の不快感を軽減
+            </li>
+          </ol>
+
+          <h4>学んだこと</h4>
+          <ul>
+            <li>論文の見方や調べ方</li>
+            <li>ARを用いる理由の付け方やARの得意なこと</li>
+            <li>人に伝える言葉や資料の作り方</li>
+            <li>当時のAR/VR HMDを車の中で使用する際の問題点</li>
+            <li>Autoware×ROS×Unity×HMDを統合した環境構築</li>
+            <li>車載HMDの課題対策、振動・センサー配置などの知見</li>
+          </ul>
+
+          <div class="publications">
+            <h4>学会発表・論文一覧</h4>
+            <ul>
+              <li>
+                <strong>CNR '22 (学生講演奨励賞, 2023年8月)</strong><br />
+                「AR情報提示による自動走行時の搭乗者が受けるストレス軽減の調査」<br />
+                （岡見洋佑, 澤邊 太志, 藤本 雄一郎, 神原 誠之, 加藤 博一）
+              </li>
+
+              <li>
+                <strong>IEEE ISMAR '22</strong><br />
+                "Diminished Reality for Sense of Movement with XR Mobility
+                Platform"<br />
+                (Taishi Sawabe, Yosuke Okami, Masayuki Kanbara, Yuichiro
+                Fujimoto, Hirokazu Kato)
+              </li>
+
+              <li>
+                <strong>HAI '22</strong><br />
+                "Hype Dlive: XR Live Performance System for Improving
+                Passenger Comfort in Autonomous Driving"<br />
+                (Takuto Akiyoshi, Masashi Abe, Yuki Shimizu, Yusaku Takahama,
+                Koki Nagata, Yosuke Okami, Taishi Sawabe)
+              </li>
+            </ul>
+          </div>
+
+          <div class="project-images two-column">
+            <img src="images/car_xr1.jpg" alt="自動走行車XRシステム1" />
+            <img src="images/car_xr2.png" alt="自動走行車XRシステム2" />
+          </div>
+
+          <div class="video-container">
+            <iframe width="560" height="400" src="https://www.youtube.com/embed/FCynV5HNurI"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+
+            <iframe width="560" height="400" src="https://www.youtube.com/embed/0LbaxfoBQVE"
+              title="YouTube video player" frameborder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen></iframe>
+          </div>
+
+          <div class="project-images three-column">
+            <img src="images/car_system1.jpg" alt="車載システム1" />
+            <img src="images/car_system2.jpg" alt="車載システム2" />
+            <img src="images/car_system3.jpg" alt="車載システム3" />
+          </div>
+
+          <h4>HypeDliveプロジェクトの担当箇所</h4>
+          <p>システムの構築を担当</p>
+          <ul>
+            <li>
+              車載半球スクリーンに取り付けるアクチュエーターの制御用システムの機材の選定(リニアエンコーダーとArduinoを使用)
+            </li>
+            <li>
+              半球投影する映像の360°動画を投影するUnityプロジェクトをUnity内に配置したカメラ映像を投影する形式に変更
+            </li>
+            <li>Unityと自動走行車の連携</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>その他学生の頃の作品・活動</h2>
+      <div class="section-content">
+        <div class="project-card">
+          <h3>部活動（高専時代）</h3>
+
+          <h4>電子工作教室の企画・運営 (高専1~5年)</h4>
+
+          <p>
+            <strong>活動内容</strong><br />
+            地域の小学校高学年向けに電子工作教室を開き、はんだ付けを含む電子工作キットを作成。試作品の回路図をもとにエッチングやプリント基板の作成を行い、一人分の部品セットをキット化して配布。また、作成手順資料の作成やサポートも担当。
+          </p>
+
+          <h4>課題・技術的トピック</h4>
+          <ul>
+            <li>毎年、小学生がはんだゴテで火傷をしてしまうリスク</li>
+            <li>安全に学習してもらうための教材づくり・教え方の工夫</li>
+          </ul>
+
+          <h4>学んだこと</h4>
+          <ul>
+            <li>電子工作の基礎(回路図→基板エッチング→部品実装)</li>
+            <li>安全教育の重要性</li>
+            <li>小学生への説明資料作成・運営ノウハウ</li>
+          </ul>
+
+          <div class="project-images two-column">
+            <img src="images/workshop1.jpg" alt="工作教室の様子1" />
+            <img src="images/workshop2.jpg" alt="工作教室の様子2" />
+          </div>
+
+          <div class="project-images mixed-layout">
+            <img src="images/electronic_work1.jpg" alt="製作した電子工作1" />
+            <img src="images/electronic_work2.jpg" alt="製作した電子工作2" />
+          </div>
+
+          <div class="project-images single-row" style="max-width: 400px">
+            <img src="images/pcb_making.jpg" alt="プリント基板作成の様子" />
+          </div>
+        </div>
+
+        <div class="project-card">
+          <h3>授業作品（高専専攻科）</h3>
+
+          <h4>リハビリ用アプリのUnity移植 (グループ開発)</h4>
+
+          <p>
+            <strong>目的・狙い</strong><br />
+            Javaで作成されていたPCアプリが無料サポート終了に伴い、別のプラットフォームでリハビリ用アプリを作成する必要があったため、Unityで新規に開発。
+          </p>
+
+          <h4>主な機能</h4>
+          <ul>
+            <li>点滅画像の検索タスク(反空間無視確認)</li>
+            <li>神経衰弱(6ペア / 12ペア)</li>
+            <li>紛らわしい文字の中からミススペルを探すタスク</li>
+            <li>画像出示＋文字の並び替え(バラバラ文字の再構成)</li>
+          </ul>
+
+          <p>
+            <strong>担当内容</strong><br />
+            9つほどある機能のうち、上記4つの機能のシステムの担当
+          </p>
+
+          <h4>学んだこと</h4>
+          <ul>
+            <li>UnityでのGUI実装やビルド後のCSVファイル読み込み機能</li>
+            <li>
+              Unityでビルド後に指定ディレクトリ下に配置したビルド時にはプロジェクトに入れていない画像の参照・表示
+            </li>
+            <li>グループ開発でのタスク管理</li>
+            <li>使用デバイスの使い回しやユーザ層を意識したUI設計</li>
+          </ul>
+
+          <div class="project-images two-column">
+            <img src="images/rehab_app1.png" alt="リハビリアプリ画面1" />
+            <img src="images/rehab_app2.png" alt="リハビリアプリ画面2" />
+            <img src="images/rehab_app3.png" alt="リハビリアプリ画面3" />
+            <img src="images/rehab_app4.png" alt="リハビリアプリ画面4" />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>職務経歴</h2>
+      <div class="section-content">
+        <div class="project-card">
+          <h3>株式会社FIXER（2023年4月～現在）</h3>
+          <p>
+            <strong>資本金：</strong>12億1千万円　<strong>従業員数：</strong>323名　<strong>業種：</strong>ソフトウェア・情報処理
+          </p>
+
+          <h4>案件概要</h4>
+          <p>
+            <strong>AI技術を用いたSaaS開発</strong><br />
+            自治体・企業向けの自社サービスチャットボット開発を100社以上のクライアントに向けて展開。LLM（Large
+            Language
+            Model）関連のWebアプリケーション開発に従事し、チーム内の「遊軍」として、フロントエンド・バックエンドの両方で手が足りない部分をカバー。
+          </p>
+
+          <div class="tech-list">
+            <span class="tech-tag">Nuxt3</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">.NET</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">PostgreSQL</span>
+            <span class="tech-tag">Fast API</span>
+            <span class="tech-tag">Roslyn</span>
+            <span class="tech-tag">GitHub Actions</span>
+            <span class="tech-tag">Docker</span>
+
+          </div>
+
+          <h4>担当業務・フェーズ</h4>
+          <ul>
+            <li>
+              <strong>フロントエンド開発</strong>：Nuxt3（TypeScript）を中心とした開発
+            </li>
+            <li>
+              <strong>バックエンド開発</strong>：.NET / Python でのAPI開発
+            </li>
+            <li>
+              <strong>API設計・実装</strong>：サーバーサイド Rest
+              API設計・開発、DB連携
+            </li>
+            <li><strong>品質管理</strong>：E2Eテスト構築、リリース作業</li>
+            <li>
+              <strong>UI/UX</strong>：FigmaでのWebページのデザイン変更箇所の修正と反映
+            </li>
+            <li>
+              <strong>技術選定</strong>：LLM
+              API（大規模言語モデル）を活用した機能開発
+            </li>
+            <li>
+              <strong>コーディング支援</strong>：Roslynを用いたコードの構文解析によるコードのスタイル統一・Copilotのプロンプト整備によるCopilotの精度向上
+            </li>
+            <li>
+              <strong>開発環境構築</strong>：Azure上での開発環境構築・整備・リリースパイプライン構築
+            </li>
+            <li>
+              <strong>タスク管理</strong>：タスク管理・スケジュール調整をPMが円滑に進められるようサポート
+            </li>
+
+          </ul>
+
+          <h4>チーム・役割</h4>
+          <p>
+            <strong>メンバー数：</strong>15~20名　<strong>役割：</strong>プログラマー（遊軍）
+          </p>
+          <ul>
+            <li>フロント・バックエンド両方のタスクをカバー</li>
+            <li>一人で機能を一貫して実装（UI～APIまで）</li>
+            <li>タスク管理やスケジュール調整をサポート</li>
+            <li>チーム内で不足がちな領域を補完</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <div class="github-link">
+      <a href="https://github.com/okami622" target="_blank">GitHubアカウント: https://github.com/okami622</a>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const sectionHeaders = document.querySelectorAll(".section h2");
+
+      sectionHeaders.forEach((header) => {
+        header.addEventListener("click", function () {
+          const section = this.parentElement;
+          const content = section.querySelector(".section-content");
+
+          // トグル機能
+          this.classList.toggle("collapsed");
+          content.classList.toggle("collapsed");
+
+          // 高さを動的に計算
+          if (!content.classList.contains("collapsed")) {
+            content.style.maxHeight = content.scrollHeight + "px";
+          } else {
+            content.style.maxHeight = "0";
+          }
         });
-    </script>
+      });
+
+      // 初期状態で全てのセクションの高さを設定
+      const allSectionContents =
+        document.querySelectorAll(".section-content");
+      allSectionContents.forEach((content) => {
+        if (!content.classList.contains("collapsed")) {
+          content.style.maxHeight = content.scrollHeight + "px";
+        }
+      });
+    });
+  </script>
 </body>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: "Helvetica Neue", Arial, "Hiragino Kaku Gothic ProN",
+      "Hiragino Sans", Meiryo, sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f8f9fa;
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+  }
+
+  .header {
+    text-align: center;
+    padding: 40px 0;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    margin: -20px -20px 40px -20px;
+    border-radius: 0 0 20px 20px;
+  }
+
+  .header h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    font-weight: 300;
+  }
+
+  .header .subtitle {
+    font-size: 1.2em;
+    opacity: 0.9;
+  }
+
+  .profile-section {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-bottom: 40px;
+  }
+
+  .profile-images {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .profile-images img {
+    width: 250px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 15px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    transition: transform 0.3s ease;
+  }
+
+  .profile-images img:hover {
+    transform: scale(1.05);
+  }
+
+  .profile-info {
+    flex: 1;
+  }
+
+  .profile-info h2 {
+    color: #667eea;
+    margin-bottom: 15px;
+    font-size: 1.8em;
+  }
+
+  .profile-info p {
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+
+  .section {
+    margin-bottom: 50px;
+  }
+
+  .section h2 {
+    color: #667eea;
+    font-size: 2em;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 3px solid #667eea;
+    cursor: pointer;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+
+  .section h2:hover {
+    color: #764ba2;
+  }
+
+  .section h2::after {
+    content: "▼";
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.7em;
+    transition: transform 0.3s ease;
+  }
+
+  .section h2.collapsed::after {
+    transform: translateY(-50%) rotate(-90deg);
+  }
+
+  .section-content {
+    transition: max-height 0.3s ease, opacity 0.3s ease;
+    overflow: hidden;
+  }
+
+  .section-content.collapsed {
+    max-height: 0;
+    opacity: 0;
+  }
+
+  .section h3 {
+    color: #764ba2;
+    font-size: 1.5em;
+    margin: 30px 0 15px 0;
+  }
+
+  .section h4 {
+    color: #555;
+    font-size: 1.2em;
+    margin: 20px 0 10px 0;
+  }
+
+  .project-card {
+    background: #fff;
+    border: 1px solid #e9ecef;
+    border-radius: 10px;
+    padding: 30px;
+    margin-bottom: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+  }
+
+  .project-images {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin: 25px 0;
+    align-items: start;
+  }
+
+  .project-images img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .project-images img:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  }
+
+  .project-images.single-row {
+    grid-template-columns: 1fr;
+    max-width: 800px;
+    margin: 25px auto;
+  }
+
+  .project-images.two-column {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .project-images.three-column {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .project-images.mixed-layout {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .tech-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 15px 0;
+  }
+
+  .tech-tag {
+    background: #667eea;
+    color: white;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    font-weight: 500;
+  }
+
+  .publications {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+
+  .publications ul {
+    list-style: none;
+  }
+
+  .publications li {
+    margin-bottom: 15px;
+    padding: 10px;
+    background: white;
+    border-radius: 5px;
+    border-left: 4px solid #667eea;
+  }
+
+  .video-container {
+    margin: 20px 0;
+  }
+
+  .video-container iframe {
+    max-width: 100%;
+    border-radius: 8px;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    margin-top: 20px;
+  }
+
+  .skill-category {
+    background: #f8f9ff;
+    padding: 20px;
+    border-radius: 10px;
+    border: 1px solid #e9ecef;
+  }
+
+  .skill-category h4 {
+    color: #667eea;
+    margin-bottom: 15px;
+  }
+
+  .skill-category ul {
+    list-style: none;
+  }
+
+  .skill-category li {
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .skill-category li:last-child {
+    border-bottom: none;
+  }
+
+  .skill-name {
+    width: 180px;
+    font-weight: 500;
+    flex-shrink: 0;
+    line-height: 1.4;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  .skill-duration {
+    color: #666;
+    font-size: 0.9em;
+    margin-left: 15px;
+    flex: 1;
+  }
+
+  .github-link {
+    text-align: center;
+    margin-top: 40px;
+    padding: 30px;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    border-radius: 10px;
+  }
+
+  .github-link a {
+    color: white;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-weight: 500;
+  }
+
+  .github-link a:hover {
+    text-decoration: underline;
+  }
+
+  @media (max-width: 768px) {
+    .profile-section {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .profile-images {
+      justify-content: center;
+    }
+
+    .profile-images img {
+      width: 200px;
+      height: 280px;
+    }
+
+    .project-images,
+    .project-images.two-column,
+    .project-images.three-column,
+    .project-images.mixed-layout {
+      grid-template-columns: 1fr;
+      gap: 15px;
+    }
+
+    .project-images img {
+      height: 250px;
+    }
+
+    .header h1 {
+      font-size: 2em;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 250px;
+    }
+
+    .container {
+      padding: 15px;
+    }
+
+    .project-card {
+      padding: 20px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .skill-name {
+      width: 140px;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .profile-images {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .profile-images img {
+      width: 180px;
+      height: 240px;
+    }
+
+    .header {
+      margin: -15px -15px 30px -15px;
+      padding: 30px 15px;
+    }
+
+    .header h1 {
+      font-size: 1.8em;
+    }
+
+    .skill-category li {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .skill-name {
+      width: 100%;
+      margin-bottom: 5px;
+    }
+
+    .skill-duration {
+      margin-left: 0;
+      width: 100%;
+    }
+  }
+</style>
+
 </html>
